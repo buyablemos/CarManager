@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/edit_text_date"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Data"
+        android:inputType="datetime"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/edit_text_fuel_amount"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Ilość paliwa"
+        android:inputType="number|numberDecimal"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/edit_text_price"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Cena"
+        android:inputType="number|numberDecimal"
+        android:textAlignment="center" />
+    <EditText
+        android:id="@+id/edit_text_distance"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Przebieg"
+        android:inputType="number|numberDecimal"
+        android:textAlignment="center" />
+
+
+    <Button
+        android:id="@+id/button_add_refueling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Dodaj tankowanie"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/button_back3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Wróć"
+        android:textAlignment="center" />
+
+
+</LinearLayout>
