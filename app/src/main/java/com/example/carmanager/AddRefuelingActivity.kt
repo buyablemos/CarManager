@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class AddRefuelingActivity : AppCompatActivity() {
 
@@ -38,16 +41,27 @@ class AddRefuelingActivity : AppCompatActivity() {
         }
     }
 
+    private fun parseDate(dateStr: String): Date {
+        return try {
+            val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            format.parse(dateStr) ?: Date(0)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Date(0)
+        }
+    }
+
     private fun addRefueling() {
-        val date = editTextDate.text.toString()
-        if(date==""){
+
+        if(parseDate(editTextDate.text.toString())==Date(0)){
             return
         }
+        val date=editTextDate.text.toString()
         val fuelAmount = editTextFuelAmount.text.toString().toDoubleOrNull() ?: return
         val price = editTextPrice.text.toString().toDoubleOrNull() ?: return
         val distance =editTextDistance.text.toString().toDoubleOrNull()?: return
 
-        val refueling = Refueling(date = date, fuelAmount = fuelAmount, price = price, distance = distance)
+        val refueling = Refueling(date = date, fuelAmount = fuelAmount, price = price, distance = distance, averageFuelEconomy = null, distanceFromLastFueling = null)
 
         val db=DatabaseHelper(this)
         db.addRefueling(refueling=refueling)

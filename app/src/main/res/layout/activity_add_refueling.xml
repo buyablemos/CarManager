@@ -9,7 +9,7 @@
         android:id="@+id/edit_text_date"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Data"
+        android:hint="Data w formacie yyyy-mm-dd"
         android:inputType="datetime"
         android:textAlignment="center" />
 

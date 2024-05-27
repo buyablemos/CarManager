@@ -22,12 +22,14 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     override fun onCreate(db: SQLiteDatabase?) {
         val createTable = ("CREATE TABLE $TABLE_REFUELINGS("
                 + "$KEY_ID INTEGER PRIMARY KEY,"
-                + "$KEY_DATE TEXT,"
+                + "$KEY_DATE DATETIME,"
                 + "$KEY_FUEL_AMOUNT REAL,"
                 + "$KEY_PRICE REAL,"
                 + "$KEY_DISTANCE REAL)")
         db?.execSQL(createTable)
+
     }
+
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         db?.execSQL("DROP TABLE IF EXISTS $TABLE_REFUELINGS")
@@ -49,23 +51,55 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     @SuppressLint("Range")
     fun getFuelingHistory(): List<Refueling> {
 
+
+
         val historyList = mutableListOf<Refueling>()
         val db = this.readableDatabase
         val cursor = db.rawQuery("SELECT * FROM $TABLE_REFUELINGS", null)
+        var last: Refueling?=null
         if (cursor.moveToFirst()) {
             do {
+                var averageEconomy:Double? = null
+                var distanceFromLast:Double? = null
                 val id = cursor.getLong(cursor.getColumnIndex(KEY_ID))
                 val date = cursor.getString(cursor.getColumnIndex(KEY_DATE))
                 val fuelAmount = cursor.getDouble(cursor.getColumnIndex(KEY_FUEL_AMOUNT))
                 val price = cursor.getDouble(cursor.getColumnIndex(KEY_PRICE))
                 val distance = cursor.getDouble(cursor.getColumnIndex(KEY_DISTANCE))
-                val refueling = Refueling(id, date, fuelAmount, price, distance)
+                if(last!=null) {
+                    averageEconomy = fuelAmount/(distance- last.distance)*100.0
+                    distanceFromLast=distance-last.distance
+                }
+
+                val refueling = Refueling(id, date, fuelAmount, price, distance, averageEconomy,distanceFromLast)
                 historyList.add(refueling)
+                last=refueling
             } while (cursor.moveToNext())
         }
         cursor.close()
         db.close()
         return historyList
+    }
+
+    @SuppressLint("Range")
+    fun getLastRefuel(): Refueling? {
+
+        val db = this.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM $TABLE_REFUELINGS", null)
+        var refueling: Refueling?=null
+        if (cursor.moveToLast()) {
+
+                val id = cursor.getLong(cursor.getColumnIndex(KEY_ID))
+                val date = cursor.getString(cursor.getColumnIndex(KEY_DATE))
+                val fuelAmount = cursor.getDouble(cursor.getColumnIndex(KEY_FUEL_AMOUNT))
+                val price = cursor.getDouble(cursor.getColumnIndex(KEY_PRICE))
+                val distance = cursor.getDouble(cursor.getColumnIndex(KEY_DISTANCE))
+                refueling = Refueling(id, date, fuelAmount, price, distance,null,null)
+
+        }
+        cursor.close()
+        db.close()
+        return refueling
     }
 
 }
