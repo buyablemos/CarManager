@@ -1,0 +1,41 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Bieżnik opony -->
+    <item android:top="0dp" android:bottom="0dp" android:left="0dp" android:right="0dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="46dp"/>
+            <gradient
+                android:startY="0.05"
+            android:endY="0.1"
+            android:startColor="#55000000"
+            android:endColor="#2c2c2c"
+            android:angle="90"/>
+            <gradient
+                android:startY="0.9"
+            android:endY="0.95"
+            android:startColor="#2c2c2c"
+            android:endColor="#55000000"
+            android:angle="90"/>
+        </shape>
+    </item>
+    <!-- Biały pasek -->
+    <item android:top="10dp" android:bottom="10dp" android:left="10dp" android:right="10dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="40dp"/>
+            <solid android:color="#FFFFFF"/>
+        </shape>
+    </item>
+    <!-- Środkowy pasek -->
+    <item android:top="11dp" android:bottom="11dp" android:left="11dp" android:right="11dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="39dp"/>
+            <gradient
+                android:startColor="#3a3a3a"
+                android:endColor="#222222"
+                android:angle="90"/>
+        </shape>
+    </item>
+</layer-list>
+
+
+

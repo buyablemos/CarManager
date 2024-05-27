@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -39,6 +41,19 @@ class AddRefuelingActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button_back3).setOnClickListener {
             finish()
         }
+        val imageView = findViewById<ImageView>(R.id.imageView3)
+        val imageView2 = findViewById<ImageView>(R.id.imageView4)
+
+        var gifUri = "android.resource://" + packageName + "/" + R.raw.icons8
+        Glide.with(this)
+            .asGif()
+            .load(gifUri)
+            .into(imageView2)
+        gifUri = "android.resource://" + packageName + "/" + R.raw.refuel
+        Glide.with(this)
+            .asGif()
+            .load(gifUri)
+            .into(imageView)
     }
 
     private fun parseDate(dateStr: String): Date {

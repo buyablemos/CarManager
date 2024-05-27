@@ -102,4 +102,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return refueling
     }
 
+    fun deleteRecord(id: Long) {
+        val db = this.writableDatabase
+
+        db.execSQL("DELETE FROM $TABLE_REFUELINGS WHERE $KEY_ID = ?", arrayOf(id.toString()))
+
+        db.close()
+    }
+
 }

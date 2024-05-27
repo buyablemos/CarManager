@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -28,6 +31,7 @@
         android:hint="Cena"
         android:inputType="number|numberDecimal"
         android:textAlignment="center" />
+
     <EditText
         android:id="@+id/edit_text_distance"
         android:layout_width="match_parent"
@@ -39,21 +43,53 @@
 
     <Button
         android:id="@+id/button_add_refueling"
+        style="@style/TireButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="Dodaj tankowanie"
+        android:background="@drawable/tire_background"
+        android:text="Dodaj"
         android:textAlignment="center" />
 
     <Button
         android:id="@+id/button_back3"
+        style="@style/TireButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:text="Wróć"
         android:textAlignment="center" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:foregroundGravity="left"
+            android:minWidth="50dp"
+            android:minHeight="50dp" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:foregroundGravity="right"
+            android:minWidth="50dp"
+            android:minHeight="50dp" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

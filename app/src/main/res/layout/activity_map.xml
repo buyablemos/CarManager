@@ -13,20 +13,22 @@
 
     <Button
         android:id="@+id/btn_back"
+        style="@style/TireButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wróć"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:text="Wróć" />
 
     <Button
         android:id="@+id/btn_save_location"
+        style="@style/TireButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Zapisz lokalizację"
         android:layout_above="@id/btn_back"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:text="Zapisz lokalizację" />
 </RelativeLayout>
 

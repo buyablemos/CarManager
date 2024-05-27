@@ -183,6 +183,7 @@ class HistoryActivity : AppCompatActivity() {
         inner class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val dateTextView: TextView = itemView.findViewById(R.id.text_date)
             private val detailsTextView: TextView = itemView.findViewById(R.id.text_details)
+            private val button: Button = itemView.findViewById(R.id.buttonDelete)
 
 
             fun bind(refueling: Refueling) {
@@ -192,12 +193,26 @@ class HistoryActivity : AppCompatActivity() {
                     val details =
                         "Paliwo: ${refueling.fuelAmount} L, Cena: ${refueling.price} PLN, Przebieg: ${refueling.distance} km, Dystans pokonany: ${refueling.distanceFromLastFueling},Średnie spalanie l/100km: ${decimalFormat.format(refueling.averageFuelEconomy)}, Cena za litr paliwa: ${decimalFormat.format(refueling.price/refueling.fuelAmount)}"
                     detailsTextView.text = details
+
+                    button.setOnClickListener(){
+                        val db=DatabaseHelper(this@HistoryActivity)
+                        db.deleteRecord(refueling.id)
+                        val adapter = HistoryAdapter(getFuelingHistory())
+                        recyclerView.adapter = adapter
+                    }
                 }
                 else{
                     dateTextView.text = refueling.date
                     val details =
                         "Paliwo: ${refueling.fuelAmount} L, Cena: ${refueling.price} PLN, Przebieg: ${refueling.distance} km, , Cena za litr paliwa: ${decimalFormat.format(refueling.price/refueling.fuelAmount)}"
                     detailsTextView.text = details
+                    button.setOnClickListener(){
+                        val db=DatabaseHelper(this@HistoryActivity)
+                        db.deleteRecord(refueling.id)
+                        val adapter = HistoryAdapter(getFuelingHistory())
+                        recyclerView.adapter = adapter
+
+                    }
                 }
 
             }
