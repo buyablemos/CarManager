@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
@@ -32,10 +33,12 @@ class AddRefuelingActivity : AppCompatActivity() {
 
         buttonAddRefueling.setOnClickListener {
 
-            addRefueling()
-            val resultIntent = Intent()
-            setResult(Activity.RESULT_OK, resultIntent)
-            finish()
+            val status=addRefueling()
+
+            if (status==0){
+                val resultIntent = Intent()
+                setResult(Activity.RESULT_OK, resultIntent)
+                finish()}
         }
 
         findViewById<Button>(R.id.button_back3).setOnClickListener {
@@ -66,21 +69,29 @@ class AddRefuelingActivity : AppCompatActivity() {
         }
     }
 
-    private fun addRefueling() {
+    private fun addRefueling(): Int {
+        val db=DatabaseHelper(this)
+        val history=db.getFuelingHistory()
 
         if(parseDate(editTextDate.text.toString())==Date(0)){
-            return
+            Toast.makeText(this,"Data nie jest poprawna",Toast.LENGTH_SHORT).show()
+            return 1
         }
         val date=editTextDate.text.toString()
-        val fuelAmount = editTextFuelAmount.text.toString().toDoubleOrNull() ?: return
-        val price = editTextPrice.text.toString().toDoubleOrNull() ?: return
-        val distance =editTextDistance.text.toString().toDoubleOrNull()?: return
+        val fuelAmount = editTextFuelAmount.text.toString().toDoubleOrNull() ?: return 1
+        val price = editTextPrice.text.toString().toDoubleOrNull() ?: return 1
+        val distance =editTextDistance.text.toString().toDoubleOrNull()?: return 1
+        val filtered=history.filter { it.distance >= distance }
+        if(filtered.isNotEmpty()){
+            Toast.makeText(this,"Przebieg jest mniejszy, niż ostatnio zapisany spróbuj jeszcze raz",Toast.LENGTH_SHORT).show()
+            return 1
+        }
 
         val refueling = Refueling(date = date, fuelAmount = fuelAmount, price = price, distance = distance, averageFuelEconomy = null, distanceFromLastFueling = null)
 
-        val db=DatabaseHelper(this)
+
         db.addRefueling(refueling=refueling)
 
-
+        return 0
     }
 }

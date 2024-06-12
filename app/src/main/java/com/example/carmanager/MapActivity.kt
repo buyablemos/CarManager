@@ -32,19 +32,19 @@ class MapActivity : FragmentActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_map)
 
 
-        // Inicjalizacja mapy
+
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        // Inicjalizacja klienta lokalizacji
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        // Obsługa przycisku "Wróć"
+
         findViewById<Button>(R.id.btn_back).setOnClickListener {
             finish()
         }
 
-        // Obsługa przycisku "Zapisz lokalizację"
+
         findViewById<Button>(R.id.btn_save_location).setOnClickListener {
             saveCurrentLocation()
         }
@@ -64,7 +64,6 @@ class MapActivity : FragmentActivity(), OnMapReadyCallback {
                 val currentLocation = LatLng(it.latitude, it.longitude)
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15f))
 
-                // Sprawdzenie, czy istnieje zapisana lokalizacja samochodu
                 loadSavedLocation()
             }
         }

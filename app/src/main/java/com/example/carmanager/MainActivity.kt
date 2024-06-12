@@ -48,4 +48,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val db=DatabaseHelper(this)
+        val refuel=db.getLastRefuel()
+        var stringToDistance = "Ostatni przebieg: "
+        if(refuel!=null) {
+            stringToDistance += refuel.distance.toString()
+            findViewById<TextView>(R.id.textViewprzebieg).text =
+                (stringToDistance)
+        }
+    }
+
 }

@@ -61,7 +61,7 @@ class HistoryActivity : AppCompatActivity() {
 
         val spinner: Spinner = findViewById(R.id.spinner)
         var isSpinnerInitialized = false
-        val sortOptions = mutableListOf("Sortuj według śr. spalania", "Sortuj według daty", "Sortuj według ceny za litr")
+        val sortOptions = mutableListOf("Sortuj według śr. spalania    ", "Sortuj według daty    ", "Sortuj według ceny za litr    ")
 
         val adapterSpinner = ArrayAdapter(
             this,

@@ -16,6 +16,6 @@
         android:drawable="@drawable/img"
         android:gravity="center"
         android:width="70dp"
-        android:height="70dp"/>/>
+        android:height="70dp"/>
 
 </layer-list>
