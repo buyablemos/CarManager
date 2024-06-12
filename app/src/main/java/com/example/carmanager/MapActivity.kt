@@ -31,19 +31,14 @@ class MapActivity : FragmentActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
 
-
-
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
 
         findViewById<Button>(R.id.btn_back).setOnClickListener {
             finish()
         }
-
 
         findViewById<Button>(R.id.btn_save_location).setOnClickListener {
             saveCurrentLocation()
@@ -53,7 +48,8 @@ class MapActivity : FragmentActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
             return
         }
@@ -71,21 +67,10 @@ class MapActivity : FragmentActivity(), OnMapReadyCallback {
 
     private fun saveCurrentLocation() {
 
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
             return
         }
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
@@ -95,8 +80,8 @@ class MapActivity : FragmentActivity(), OnMapReadyCallback {
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15f))
                 marker?.remove()
                 marker=mMap.addMarker(MarkerOptions().position(LatLng(lastLocation.latitude,lastLocation.longitude)).title("Zaparkowany samochód"))
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(lastLocation.latitude,lastLocation.longitude), 15f))
-                val sharedPreferences = getSharedPreferences("PARKING_PREFS", Context.MODE_PRIVATE)
+
+                val sharedPreferences = getSharedPreferences("PARKING_LOCATION", Context.MODE_PRIVATE)
                 val editor = sharedPreferences.edit()
                 editor.putString("LATITUDE", lastLocation.latitude.toString())
                 editor.putString("LONGITUDE", lastLocation.longitude.toString())
@@ -110,7 +95,7 @@ class MapActivity : FragmentActivity(), OnMapReadyCallback {
     }
 
     private fun loadSavedLocation() {
-        val sharedPreferences = getSharedPreferences("PARKING_PREFS", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("PARKING_LOCATION", Context.MODE_PRIVATE)
         val latitude = sharedPreferences.getString("LATITUDE", null)
         val longitude = sharedPreferences.getString("LONGITUDE", null)
 

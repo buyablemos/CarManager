@@ -70,7 +70,7 @@ class AddRefuelingActivity : AppCompatActivity() {
     }
 
     private fun addRefueling(): Int {
-        val db=DatabaseHelper(this)
+        val db=DatabaseHelper(this,null)
         val history=db.getFuelingHistory()
 
         if(parseDate(editTextDate.text.toString())==Date(0)){

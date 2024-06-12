@@ -51,7 +51,7 @@ class HistoryActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.buttonSort).setOnClickListener(){
             if(sortingType!=null){
-            sortingType?.let { sorted(it) }
+             sorted(sortingType!!)
             }
             else{
                 Toast.makeText(this,"Zaznacz typ sortowania!",Toast.LENGTH_SHORT).show()
@@ -148,7 +148,7 @@ class HistoryActivity : AppCompatActivity() {
 
 
     private fun getFuelingHistory(): List<Refueling> {
-        val dbHelper = DatabaseHelper(this)
+        val dbHelper = DatabaseHelper(this,null)
         return dbHelper.getFuelingHistory()
     }
 
@@ -165,7 +165,7 @@ class HistoryActivity : AppCompatActivity() {
         RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_history, parent, false)
+                .inflate(R.layout.item_for_recycler, parent, false)
             return HistoryViewHolder(view)
         }
 
@@ -174,11 +174,7 @@ class HistoryActivity : AppCompatActivity() {
             holder.bind(refueling)
         }
 
-        override fun getItemCount(): Int {
-            return historyList.size
-        }
-
-
+        override fun getItemCount(): Int = historyList.size
 
         inner class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val dateTextView: TextView = itemView.findViewById(R.id.text_date)
@@ -195,7 +191,7 @@ class HistoryActivity : AppCompatActivity() {
                     detailsTextView.text = details
 
                     button.setOnClickListener(){
-                        val db=DatabaseHelper(this@HistoryActivity)
+                        val db=DatabaseHelper(this@HistoryActivity,null)
                         db.deleteRecord(refueling.id)
                         val adapter = HistoryAdapter(getFuelingHistory())
                         recyclerView.adapter = adapter
@@ -207,7 +203,7 @@ class HistoryActivity : AppCompatActivity() {
                         "Paliwo: ${refueling.fuelAmount} L, Cena: ${refueling.price} PLN, Przebieg: ${refueling.distance} km, , Cena za litr paliwa: ${decimalFormat.format(refueling.price/refueling.fuelAmount)}"
                     detailsTextView.text = details
                     button.setOnClickListener(){
-                        val db=DatabaseHelper(this@HistoryActivity)
+                        val db=DatabaseHelper(this@HistoryActivity,null)
                         db.deleteRecord(refueling.id)
                         val adapter = HistoryAdapter(getFuelingHistory())
                         recyclerView.adapter = adapter

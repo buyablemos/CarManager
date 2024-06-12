@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        val db=DatabaseHelper(this)
+        val db=DatabaseHelper(this,null)
         val refuel=db.getLastRefuel()
         var stringToDistance = "Ostatni przebieg: "
         if(refuel!=null) {
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val db=DatabaseHelper(this)
+        val db=DatabaseHelper(this,null)
         val refuel=db.getLastRefuel()
         var stringToDistance = "Ostatni przebieg: "
         if(refuel!=null) {

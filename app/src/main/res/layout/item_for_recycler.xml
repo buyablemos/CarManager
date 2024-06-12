@@ -21,8 +21,8 @@
 
     <Button
         android:id="@+id/buttonDelete"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:background="@drawable/quantum_ic_clear_grey600_24" />
 
 </LinearLayout>
